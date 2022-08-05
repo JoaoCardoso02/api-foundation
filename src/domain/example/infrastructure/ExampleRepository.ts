@@ -1,18 +1,18 @@
 import Example from '@domain/example/entities/Example'
-import { ICreateExample } from '../types/ICreateExample'
+import { ICreateExample } from '@domain/example/types/ICreateExample'
 
 export default class ExampleRepository {
 	private data: Example[] = []
 
-	getAll() {
+	getAll(): Example[] {
 		return this.data
 	}
 
-	getOne(id: number) {
-		return this.data.find((dt) => dt.getId() === id)
+	getOne(id: number): Example | null {
+		return this.data.find((dt) => dt.getId() === id) || null
 	}
 
-	create(example: ICreateExample) {
+	create(example: ICreateExample): Example {
 		const lastId = this.data[this.data.length - 1]?.getId()
 		let id = 1
 
@@ -25,10 +25,10 @@ export default class ExampleRepository {
 			})
 		)
 
-		return this.getOne(id)
+		return this.getOne(id) as Example
 	}
 
-	update(id: number, example: ICreateExample) {
+	update(id: number, example: ICreateExample): Example {
 		const exampleCreated = this.getOne(id)
 
 		if (!exampleCreated) throw new Error('Example was not found')
@@ -39,10 +39,10 @@ export default class ExampleRepository {
 
 		this.data[index] = exampleToSave
 
-		return this.getOne(id)
+		return this.getOne(id) as Example
 	}
 
-	delete(id: number) {
+	delete(id: number): boolean {
 		try {
 			const index = this.data.findIndex((dt) => dt.getId() === id)
 

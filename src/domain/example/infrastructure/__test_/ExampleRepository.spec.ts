@@ -22,12 +22,12 @@ describe('ExampleRepository', () => {
 		})
 	})
 
-	it('should get an example and it returns undefined successfully', () => {
+	it('should return null if example for this if does not exist', () => {
 		const sut = new ExampleRepository()
 
 		const result = sut.getOne(1)
 
-		expect(result).toEqual(undefined)
+		expect(result).toEqual(null)
 	})
 
 	it('should create an example and returns it', () => {
