@@ -1,4 +1,4 @@
-import Example from '../Example'
+import Example from '@domain/example/entities/Example'
 
 describe('Example', () => {
 	it('should create a Example instance successfully', () => {

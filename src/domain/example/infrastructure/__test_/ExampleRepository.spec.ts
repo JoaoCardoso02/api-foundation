@@ -1,4 +1,4 @@
-import ExampleRepository from '../ExampleRepository'
+import ExampleRepository from '@domain/example/infrastructure/ExampleRepository'
 
 describe('ExampleRepository', () => {
 	it('should create an ExampleRepository instance successfully', () => {
