@@ -1,15 +1,18 @@
-import ExampleRepository from '@domain/example/infrastructure/ExampleRepository'
+import { tokens } from '@di/tokens'
+import { inject, injectable } from 'tsyringe'
+
 import Example from '@domain/example/entities/Example'
 
 import { ICreateExample } from '@domain/example/types/ICreateExample'
 import { IExampleService } from '@domain/example/types/IExampleService'
+import { IExampleRepository } from '../types/IExampleRepository'
 
+@injectable()
 export default class ExampleService implements IExampleService {
-	private readonly exampleRepository: ExampleRepository
-
-	constructor() {
-		this.exampleRepository = new ExampleRepository()
-	}
+	constructor(
+		@inject(tokens.ExampleRepository)
+		private exampleRepository: IExampleRepository
+	) {}
 
 	findAll(): Example[] {
 		return this.exampleRepository.getAll()

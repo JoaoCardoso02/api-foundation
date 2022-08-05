@@ -1,14 +1,16 @@
+import { tokens } from '@di/tokens'
+import { inject, injectable } from 'tsyringe'
+
 import Example from '@domain/example/entities/Example'
-import ExampleService from '@domain/example/services/ExampleService'
 import { IExampleService } from '@domain/example/types/IExampleService'
 import { ICreateExample } from '@domain/example/types/ICreateExample'
 
+@injectable()
 export default class ExampleAppService {
-	private exampleService: IExampleService
-
-	constructor() {
-		this.exampleService = new ExampleService()
-	}
+	constructor(
+		@inject(tokens.ExampleService)
+		private exampleService: IExampleService
+	) {}
 
 	findAll(): Example[] {
 		return this.exampleService.findAll()

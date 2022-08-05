@@ -4,27 +4,37 @@ import {
 } from '@domain/example/__mocks__/Example'
 import ExampleService from '@domain/example/services/ExampleService'
 
-jest.mock('@domain/example/infrastructure/ExampleRepository', () => {
-	const ExampleRepositoryStub = jest.fn().mockReturnValue({
+const makeExampleRepositoryStub = () => {
+	const ExampleRepositoryStub = {
 		getAll: jest.fn().mockReturnValue([exampleMock]),
 		getOne: jest.fn().mockReturnValue(exampleMock),
 		create: jest.fn().mockReturnValue(exampleMock),
 		update: jest.fn().mockReturnValue(exampleUpdatedMock),
 		delete: jest.fn().mockReturnValue(true),
-	})
+	}
 
 	return ExampleRepositoryStub
-})
+}
+
+const makeSut = () => {
+	const exampleRepositoryStub = makeExampleRepositoryStub()
+	const sut = new ExampleService(exampleRepositoryStub)
+
+	return {
+		sut,
+		exampleRepositoryStub,
+	}
+}
 
 describe('ExampleService', () => {
 	it('should create an ExampleService instance successfully', () => {
-		const sut = new ExampleService()
+		const { sut } = makeSut()
 
 		expect(sut).toBeInstanceOf(ExampleService)
 	})
 
 	it('should get all Examples successfully', () => {
-		const sut = new ExampleService()
+		const { sut } = makeSut()
 
 		const result = sut.findAll()
 
@@ -32,7 +42,7 @@ describe('ExampleService', () => {
 	})
 
 	it('should get one Examples by id successfully', () => {
-		const sut = new ExampleService()
+		const { sut } = makeSut()
 
 		const result = sut.findOne(1)
 
@@ -40,7 +50,7 @@ describe('ExampleService', () => {
 	})
 
 	it('should create one Example successfully', () => {
-		const sut = new ExampleService()
+		const { sut } = makeSut()
 
 		const result = sut.create({
 			age: 20,
@@ -51,7 +61,7 @@ describe('ExampleService', () => {
 	})
 
 	it('should update one Example by id successfully', () => {
-		const sut = new ExampleService()
+		const { sut } = makeSut()
 
 		const result = sut.update(1, {
 			age: 30,
@@ -62,7 +72,7 @@ describe('ExampleService', () => {
 	})
 
 	it('should delete one Example successfully', () => {
-		const sut = new ExampleService()
+		const { sut } = makeSut()
 
 		const result = sut.delete(1)
 
