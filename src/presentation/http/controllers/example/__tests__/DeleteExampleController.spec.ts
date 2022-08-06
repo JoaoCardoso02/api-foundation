@@ -1,6 +1,6 @@
 import DeleteExampleController from '@presentation/http/controllers/example/DeleteExampleController'
 import ExampleAppService from '@application/example/ExampleAppService'
-import { IRequest } from '@presentation/types/IRequest'
+import { IRequest } from '@presentation/http/types/IRequest'
 import { InternalException } from '@shared/exceptions/InternalException'
 
 const makeExampleAppService = () => {

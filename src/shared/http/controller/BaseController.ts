@@ -1,4 +1,4 @@
-import { IRequest } from '@presentation/types/IRequest'
+import { IRequest } from '@presentation/http/types/IRequest'
 import { BaseError } from '@shared/exceptions/BaseError'
 import { InternalException } from '@shared/exceptions/InternalException'
 import { HttpResponse } from '@shared/http/interfaces/IHttpResponse'

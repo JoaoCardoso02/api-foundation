@@ -1,4 +1,4 @@
-import { IRequest } from '@presentation/types/IRequest'
+import { IRequest } from '@presentation/http/types/IRequest'
 import { Request, Response } from 'express'
 import BaseController from '@shared/http/controller/BaseController'
 

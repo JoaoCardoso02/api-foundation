@@ -1,7 +1,7 @@
 import GetOneExampleController from '@presentation/http/controllers/example/GetOneExampleController'
 import ExampleAppService from '@application/example/ExampleAppService'
 import { exampleMock } from '@domain/example/__mocks__/Example'
-import { IRequest } from '@presentation/types/IRequest'
+import { IRequest } from '@presentation/http/types/IRequest'
 import { InternalException } from '@shared/exceptions/InternalException'
 
 const makeExampleAppService = () => {
