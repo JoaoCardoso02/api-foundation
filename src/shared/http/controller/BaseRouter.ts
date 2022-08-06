@@ -27,4 +27,8 @@ export default class BaseRouter {
 	delete(path: string, handler: BaseController) {
 		this.router.delete(path, handler.execute)
 	}
+
+	getRouter() {
+		return this.router
+	}
 }

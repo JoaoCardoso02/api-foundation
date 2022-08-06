@@ -78,4 +78,12 @@ describe('BaseRouter', () => {
 
 		expect(deleteSpy).toBeCalled()
 	})
+
+	it('should return Router when call getRouter method', () => {
+		const { sut, router } = makeSut()
+
+		const result = sut.getRouter()
+
+		expect(result).toEqual(router)
+	})
 })
