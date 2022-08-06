@@ -6,31 +6,31 @@ import BaseRouter from '@shared/http/controller/BaseRouter'
 import { Router } from 'express'
 
 @injectable()
-export class ArticleRouter extends BaseRouter implements IRouter {
+export class ExampleRouter extends BaseRouter implements IRouter {
 	constructor(
-		@inject(tokens.GetAllArticlesController)
-		private getAllArticlesController: BaseController,
+		@inject(tokens.GetAllExamplesController)
+		private getAllExamplesController: BaseController,
 
-		@inject(tokens.GetOneArticleController)
-		private getOneArticleController: BaseController,
+		@inject(tokens.GetOneExampleController)
+		private getOneExampleController: BaseController,
 
-		@inject(tokens.CreateArticleController)
-		private createArticleController: BaseController,
+		@inject(tokens.CreateExampleController)
+		private createExampleController: BaseController,
 
-		@inject(tokens.UpdateArticleController)
-		private updateArticleController: BaseController,
+		@inject(tokens.UpdateExampleController)
+		private updateExampleController: BaseController,
 
-		@inject(tokens.DeleteArticleController)
-		private deleteArticleController: BaseController
+		@inject(tokens.DeleteExampleController)
+		private deleteExampleController: BaseController
 	) {
 		super(Router())
 	}
 
 	setup(): void {
-		this.get('v1/articles', this.getAllArticlesController)
-		this.get('v1/articles/{id}', this.getOneArticleController)
-		this.post('v1/articles', this.createArticleController)
-		this.patch('v1/articles/{id}', this.updateArticleController)
-		this.delete('v1/articles/{id}', this.deleteArticleController)
+		this.get('v1/articles', this.getAllExamplesController)
+		this.get('v1/articles/{id}', this.getOneExampleController)
+		this.post('v1/articles', this.createExampleController)
+		this.patch('v1/articles/{id}', this.updateExampleController)
+		this.delete('v1/articles/{id}', this.deleteExampleController)
 	}
 }
