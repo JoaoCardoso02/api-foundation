@@ -1,3 +1,5 @@
+import { Router } from 'express'
+
 export interface IRouter {
-	setup(): void
+	setup(): Router
 }

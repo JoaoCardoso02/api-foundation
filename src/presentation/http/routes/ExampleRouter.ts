@@ -26,11 +26,13 @@ export class ExampleRouter extends BaseRouter implements IRouter {
 		super(Router())
 	}
 
-	setup(): void {
+	setup(): Router {
 		this.get('v1/articles', this.getAllExamplesController)
 		this.get('v1/articles/{id}', this.getOneExampleController)
 		this.post('v1/articles', this.createExampleController)
 		this.patch('v1/articles/{id}', this.updateExampleController)
 		this.delete('v1/articles/{id}', this.deleteExampleController)
+
+		return this.getRouter()
 	}
 }
