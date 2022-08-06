@@ -1,4 +1,7 @@
 export const tokens = {
+	// Global
+	Routes: Symbol('Routes'),
+
 	// Example
 	ExampleRepository: Symbol('ExampleRepository'),
 	ExampleService: Symbol('ExampleService'),
@@ -8,4 +11,5 @@ export const tokens = {
 	CreateExampleController: Symbol('CreateExampleController'),
 	UpdateExampleController: Symbol('UpdateExampleController'),
 	DeleteExampleController: Symbol('DeleteExampleController'),
+	ExampleRouter: Symbol('ExampleRouter'),
 }

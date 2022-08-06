@@ -3,6 +3,11 @@ import { tokens } from '@di/tokens'
 
 const childContainer = container.createChildContainer()
 
+// Global
+import { Routes } from '@presentation/http/Routes'
+
+childContainer.registerSingleton(tokens.Routes, Routes)
+
 // Example
 import ExampleRepository from '@domain/example/infrastructure/ExampleRepository'
 import ExampleService from '@domain/example/services/ExampleService'
@@ -12,6 +17,7 @@ import GetOneExampleController from '@presentation/http/controllers/example/GetO
 import CreateExampleController from '@presentation/http/controllers/example/CreateExampleController'
 import UpdateExampleController from '@presentation/http/controllers/example/UpdateExampleController'
 import DeleteExampleController from '@presentation/http/controllers/example/DeleteExampleController'
+import { ExampleRouter } from '@presentation/http/routes/ExampleRouter'
 
 childContainer.registerSingleton(tokens.ExampleRepository, ExampleRepository)
 childContainer.registerSingleton(tokens.ExampleService, ExampleService)
@@ -36,5 +42,6 @@ childContainer.registerSingleton(
 	tokens.DeleteExampleController,
 	DeleteExampleController
 )
+childContainer.registerSingleton(tokens.ExampleRouter, ExampleRouter)
 
 export { childContainer as container }
