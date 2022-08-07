@@ -11,6 +11,6 @@ export class Routes {
 	) {}
 
 	public setupRouter(router: Router) {
-		router.use('/v1/examples', this.exampleRouter.setup())
+		router.use('/api', this.exampleRouter.setup())
 	}
 }
