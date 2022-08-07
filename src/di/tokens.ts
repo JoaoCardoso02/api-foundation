@@ -1,6 +1,8 @@
 export const tokens = {
 	// Global
 	Routes: Symbol('Routes'),
+	DocsService: Symbol('DocsService'),
+	DocsController: Symbol('DocsController'),
 
 	// Example
 	ExampleRepository: Symbol('ExampleRepository'),

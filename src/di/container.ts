@@ -5,8 +5,12 @@ const childContainer = container.createChildContainer()
 
 // Global
 import { Routes } from '@presentation/http/Routes'
+import DocsService from '@infrastructure/docs/DocsService'
+import DocsController from '@presentation/http/controllers/DocsController'
 
 childContainer.registerSingleton(tokens.Routes, Routes)
+childContainer.registerSingleton(tokens.DocsService, DocsService)
+childContainer.registerSingleton(tokens.DocsController, DocsController)
 
 // Example
 import ExampleRepository from '@domain/example/infrastructure/ExampleRepository'
