@@ -1,54 +1,76 @@
+import { tokens } from '@di/tokens'
 import Example from '@domain/example/entities/Example'
 import { ICreateExample } from '@domain/example/types/ICreateExample'
+import { MongoDBClient } from '@infrastructure/mongodb/MongoDBClient'
+import { NotFoundException } from '@shared/exceptions/NotFoundException'
+import { ObjectId } from 'mongodb'
+import { inject, injectable } from 'tsyringe'
+import { IExampleRaw } from '../types/IExampleRaw'
 
+@injectable()
 export default class ExampleRepository {
-	private data: Example[] = []
+	private collectionName = 'examples'
 
-	getAll(): Example[] {
-		return this.data
+	constructor(
+		@inject(tokens.MongoDBClient)
+		private client: MongoDBClient
+	) {}
+
+	async getAll(): Promise<Example[]> {
+		const collection = await this.client.getCollection(this.collectionName)
+
+		const examples = await collection.find<IExampleRaw>({}).toArray()
+
+		return examples.map(
+			(example) =>
+				new Example({
+					...example,
+					id: example._id.toString(),
+				})
+		)
 	}
 
-	getOne(id: number): Example | null {
-		return this.data.find((dt) => dt.getId() === id) || null
+	async getOne(id: string): Promise<Example | null> {
+		const collection = await this.client.getCollection(this.collectionName)
+
+		const example = await collection.findOne<IExampleRaw>({
+			_id: new ObjectId(id),
+		})
+
+		if (!example) {
+			throw new NotFoundException('Example was not found')
+		}
+
+		return new Example({
+			...example,
+			id: example._id.toString(),
+		})
 	}
 
-	create(example: ICreateExample): Example {
-		const lastId = this.data[this.data.length - 1]?.getId()
-		let id = 1
+	async create(example: ICreateExample): Promise<Example> {
+		const collection = await this.client.getCollection(this.collectionName)
 
-		if (lastId) id = lastId + 1
+		const exampleCreated = await collection.insertOne(example)
 
-		this.data.push(
-			new Example({
-				...example,
-				id,
-			})
+		return (await this.getOne(exampleCreated.insertedId.toString())) as Example
+	}
+
+	async update(id: string, example: ICreateExample): Promise<Example> {
+		const collection = await this.client.getCollection(this.collectionName)
+
+		const exampleUpdated = await collection.updateOne(
+			{ _id: new ObjectId(id) },
+			{ $set: example }
 		)
 
-		return this.getOne(id) as Example
+		return (await this.getOne(exampleUpdated.upsertedId.toString())) as Example
 	}
 
-	update(id: number, example: ICreateExample): Example {
-		const exampleCreated = this.getOne(id)
-
-		if (!exampleCreated) throw new Error('Example was not found')
-
-		const exampleToSave = Object.assign(exampleCreated, example)
-
-		const index = this.data.findIndex((dt) => dt.getId() === id)
-
-		this.data[index] = exampleToSave
-
-		return this.getOne(id) as Example
-	}
-
-	delete(id: number): boolean {
+	async delete(id: string): Promise<boolean> {
 		try {
-			const index = this.data.findIndex((dt) => dt.getId() === id)
+			const collection = await this.client.getCollection(this.collectionName)
 
-			if (index < 0) throw new Error('Example was not found')
-
-			this.data.splice(index)
+			await collection.deleteOne({ _id: new ObjectId(id) })
 
 			return true
 		} catch {
