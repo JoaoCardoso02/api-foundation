@@ -1,7 +1,7 @@
 import { IExample } from '@domain/example/types/IExample'
 
 export default class Example {
-	private id?: number
+	private id?: string
 	private name!: string
 	private age!: number
 
@@ -15,7 +15,7 @@ export default class Example {
 		return this.id
 	}
 
-	setId(id?: number) {
+	setId(id?: string) {
 		this.id = id
 	}
 
