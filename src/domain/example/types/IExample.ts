@@ -1,5 +1,5 @@
 export interface IExample {
-	id?: number
+	id?: string
 	name: string
 	age: number
 }
