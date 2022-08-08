@@ -3,6 +3,7 @@ export const tokens = {
 	Routes: Symbol('Routes'),
 	DocsService: Symbol('DocsService'),
 	DocsController: Symbol('DocsController'),
+	MongoDBClient: Symbol('MongoDBClient'),
 
 	// Example
 	ExampleRepository: Symbol('ExampleRepository'),
